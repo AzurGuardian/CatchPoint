@@ -1,0 +1,91 @@
+<html>
+
+
+
+<head>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+            integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+            crossorigin=""></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+          integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+          crossorigin=""/>
+
+          
+
+</head>
+
+<style>
+    #mapid { height: 100%; width: 100%; }
+</style>
+<body>
+
+
+
+<input type="button" value="TEST" onclick="testGPS()"/>
+
+<div id="mapid"></div>
+
+
+<script>
+
+var map = L.map('mapid');
+var mapString = JSON.parse(testGPS());
+var posU;
+
+setPoints(mapString);
+
+
+
+
+function updateGPS(lat,lng){
+
+        Android.logTest("GPS");
+        if(posU !== undefined){
+            map.removeLayer(posU);
+        }
+        posU = L.circle([lat,lng], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 1.0,
+            radius: 150
+        });
+        posU.addTo(map);
+    }
+
+
+    function testGPS(){
+        return Android.getObject();
+
+    }
+
+    function setPoints(jsonPoints){
+
+Android.logTest("GPSPoint");
+        map.setView([jsonPoints.lat, jsonPoints.lng], jsonPoints.zoom);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var indices = "";
+        jsonPoints.points.forEach(function(element){
+
+            indices ="";
+            element.indices.forEach(function(indice){
+                indices += indice;
+            });
+
+
+            L.marker([element.lat,element.lng]).addTo(map)
+            .bindPopup(indices);
+
+        });
+    }
+
+    </script>
+
+</body>
+</html>
+
+
