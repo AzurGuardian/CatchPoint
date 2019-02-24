@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("IP", "http://192.168.43.223:60000/");
+        editor.putString("IP", "http://192.168.43.2:60000/");
         editor.commit();
 
         connexion = new ConnexionAsynk();

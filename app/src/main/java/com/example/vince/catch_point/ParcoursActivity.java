@@ -25,7 +25,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.ConsoleMessage;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -186,6 +188,15 @@ public class ParcoursActivity extends AppCompatActivity implements IndiceFragmen
         myWebView = (WebView) findViewById(R.id.webview_map);
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        myWebView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+                Log.e("MyApplication", consoleMessage.message() + " -- From line "
+                        + consoleMessage.lineNumber() + " of "
+                        + consoleMessage.sourceId());
+                return super.onConsoleMessage(consoleMessage);
+            }
+        });
 
 // Acquire a reference to the system Location Manager
 

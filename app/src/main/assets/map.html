@@ -22,35 +22,59 @@
 <body>
 
 
-
-<input type="button" value="TEST" onclick="testGPS()"/>
-
 <div id="mapid"></div>
 
 
 <script>
 
+
 var map = L.map('mapid');
+
+        Android.logTest("test");
+var depart = L.icon({
+                iconUrl: "./depart.png",
+                iconSize:     [60, 60], // size of the icon
+                iconAnchor:   [15, 55], // point of the icon which will correspond to marker's location
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            });
+var myIcon = L.icon({
+                iconUrl: "./icon.png",
+                iconSize:     [45, 45], // size of the icon
+                iconAnchor:   [15, 55], // point of the icon which will correspond to marker's location
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            });
+
+var arrive = L.icon({
+                iconUrl: "./arrive.png",
+                iconSize:     [60, 60], // size of the icon
+                iconAnchor:   [15, 55], // point of the icon which will correspond to marker's location
+                popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            });
+
+        Android.logTest(depart);
 var mapString = JSON.parse(testGPS());
 var posU;
 
+
+
+
+
+        Android.logTest("YUP");
 setPoints(mapString);
 
 
 
 
 function updateGPS(lat,lng){
+Android.logTest("HEYEYEYEYEYEYEYEYEYEYEYEYEYE")
 
-        Android.logTest("GPS");
+
+
+        Android.logTest(depart);
         if(posU !== undefined){
             map.removeLayer(posU);
         }
-        posU = L.circle([lat,lng], {
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 1.0,
-            radius: 150
-        });
+        posU = L.marker([lat,lng],{icon: myIcon}).addTo(map)
         posU.addTo(map);
     }
 
@@ -69,16 +93,28 @@ Android.logTest("GPSPoint");
         }).addTo(map);
 
         var indices = "";
-        jsonPoints.points.forEach(function(element){
+        jsonPoints.points.forEach(function(element,index){
 
             indices ="";
             element.indices.forEach(function(indice){
                 indices += indice;
             });
+            if(index == 0){
+                L.marker([element.lat,element.lng],{icon: depart}).addTo(map)
+                .bindPopup(indices);
+            }else {
 
+                L.polyline([L.latLng(element.lat,element.lng),L.latLng(jsonPoints.points[index-1].lat,jsonPoints.points[index-1].lng)]).addTo(map);
+                if(index == jsonPoints.points.length-1){
+                    L.marker([element.lat,element.lng],{icon: arrive}).addTo(map)
+                .bindPopup(indices);
+                }else{
 
-            L.marker([element.lat,element.lng]).addTo(map)
-            .bindPopup(indices);
+                    L.marker([element.lat,element.lng]).addTo(map)
+                    .bindPopup(indices);
+
+                }
+            }
 
         });
     }

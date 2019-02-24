@@ -14,8 +14,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="58dp"
-        android:text="Catch-Point"
-        android:textSize="30sp" />
+        android:text="Connexion"
+        android:textColor="@color/colorPrimary"
+        android:textSize="36sp" />
 
     <EditText
         android:id="@+id/editLogin"
@@ -24,21 +25,25 @@
         android:layout_above="@+id/editMotDePasse"
         android:layout_alignStart="@+id/editMotDePasse"
         android:layout_marginBottom="57dp"
+        android:backgroundTint="@color/colorPrimary"
         android:ems="10"
         android:hint="Login"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColorLink="@color/colorPrimary" />
 
     <EditText
         android:id="@+id/editMotDePasse"
-        android:password="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="207dp"
+        android:backgroundTint="@color/colorPrimary"
         android:ems="10"
         android:hint="Mot de passe"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:password="true"
+        android:textColorLink="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/Error"
@@ -55,8 +60,11 @@
         android:id="@+id/connexionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="54dp"
-        android:text="Connexion" />
+        android:background="@drawable/button"
+        android:text="Connexion"
+        android:textColor="@color/textColorButton" />
 </RelativeLayout>
