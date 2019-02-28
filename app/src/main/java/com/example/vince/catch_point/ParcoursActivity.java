@@ -148,6 +148,11 @@ public class ParcoursActivity extends AppCompatActivity implements IndiceFragmen
                         if(difficulty.equals("difficile")){
 
                             ((IndiceFragment)fragment).nextPoint();
+
+                            noPoint++;
+                        }else if (difficulty.equals("facile")){
+
+                            noPoint++;
                         }
                     } else {
 
@@ -155,13 +160,14 @@ public class ParcoursActivity extends AppCompatActivity implements IndiceFragmen
 
                             pointToast("Raté, passez au point suivant");
                             ((IndiceFragment)fragment).nextPoint();
+
+                            noPoint++;
                         }else {
 
                             pointToast("Raté, réessayer en vous rapprochant du marqueur");
                         }
                         score.updateScore(-100);
                     }
-                    noPoint++;
                 }
                 if(noPoint >= points.length){
                     pointToast("fin du parcours");
