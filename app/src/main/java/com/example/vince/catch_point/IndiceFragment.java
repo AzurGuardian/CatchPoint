@@ -182,7 +182,7 @@ public class IndiceFragment extends Fragment {
 
     public void affIndiceF(){
         ArrayList<Indice> arrayInd = points[noPoint].getIndicesF() ;
-        if(noInd < arrayInd.size()){
+        if(noInd < arrayInd.size() && points[noPoint].getIndicesF() != null){
             Indice indF = arrayInd.get(noInd);
             if( indF.getType().equals("file")){
                 ImageView indFiv = new ImageView(this.getContext());

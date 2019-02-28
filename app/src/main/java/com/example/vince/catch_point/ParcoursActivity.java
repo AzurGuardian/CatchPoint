@@ -150,11 +150,16 @@ public class ParcoursActivity extends AppCompatActivity implements IndiceFragmen
                             ((IndiceFragment)fragment).nextPoint();
                         }
                     } else {
-                        pointToast("Raté, passez au point suivant");
+
                         if(difficulty.equals("difficile")){
 
+                            pointToast("Raté, passez au point suivant");
                             ((IndiceFragment)fragment).nextPoint();
+                        }else {
+
+                            pointToast("Raté, réessayer en vous rapprochant du marqueur");
                         }
+                        score.updateScore(-100);
                     }
                     noPoint++;
                 }
